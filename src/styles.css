@@ -6,9 +6,17 @@
   padding: 0;
 }
 
+:root {
+  --padding-button: 8px 12px 8px 12px;
+  --list-button-color: rgba(243, 150, 218, 0.877);
+  --page-background-color: rgb(242, 199, 70);
+  --add-button-color: rgb(153, 221, 51);
+  --delete-button-color: rgb(228, 47, 47);
+}
+
 body {
   font-family: system-ui, sans-serif;
-  background-color: rgb(209, 94, 113);
+  background-color: var(--page-background-color);
   color: #18181b;
   min-height: 90%;
 }
@@ -25,10 +33,10 @@ body {
 }
 
 .buttonAdd {
-  background-color: rgb(153, 221, 51);
+  background-color: var(--add-button-color);
   color: white;
   border-radius: 5px;
-  padding: 5px 7px 5px 7px;
+  padding: var(--padding-button);
   font-weight: 900;
   margin-left: auto;
 }
@@ -37,10 +45,10 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 10px;
+  gap: 20px;
   max-width: 40rem;
   margin: 2rem auto;
-  padding: 1.5rem;
+  padding: 2.5rem;
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -48,10 +56,33 @@ body {
 }
 
 .listButton {
-  background-color: rgb(153, 221, 51);
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--list-button-color);
   color: white;
   border-radius: 5px;
-  padding: 15px 19px 15px 15px;
+  padding: 15px 25px;
+  font-weight: 900;
+  width: 100%;
+  
+}
+
+.deleteButton {
+  background-color: var(--delete-button-color);
+  color: white;
+  border-radius: 5px;
+  padding: var(--padding-button);
   max-width: 25rem;
   font-weight: 900;
+  border: solid;
+  border-color: rgb(71, 60, 60);
+  border-width: 1px;
 }
+
+.listInput {
+  display: flex;
+  flex-direction: column;
+}
+/*.checkmark {
+  
+}*/
