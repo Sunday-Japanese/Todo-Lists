@@ -12,14 +12,14 @@ function toAddTodoList() {
     document.querySelector(".listInput").showModal();
 }
 
-function addTodoToTodoList(todoItem) {
+function addTodoToTodoList() {
     const checkBox = document.createElement("input");
     const titleSpan = document.createElement("span");
     const deleteButton = document.createElement("button");
     const listButton = document.createElement("button");
 
     checkBox.type = "checkbox";
-    titleSpan.textContent = todoItem.title;
+    titleSpan.textContent = title.value;
     deleteButton.innerText = "-";
 
     listButton.classList.add("listButton");
