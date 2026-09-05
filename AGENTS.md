@@ -12,10 +12,14 @@
 
 ## Architecture
 - Vanilla JS single-page app, no framework. Entry point is `src/index.js`, which builds the view imperatively and wires up event listeners
-- `src/todoListUI.js` creates reusable DOM elements (`buttonAdd`, `input`, `label`); `src/listCreation.js` defines the `todo` class (lowercase) and `toAddTodoList()`; `src/userInterface.js` and `src/project.js` are empty placeholders
-- The `todo` constructor takes 6 fields, but `toAddTodoList()` never reads the dialog form inputs — no `todo` is created from user input yet; the form is decorative
+- `src/todoListUI.js` creates the DOM elements (`buttonAdd`, `closeButton`, `submit`) and owns dialog wiring: the submit handler reads the form inputs, builds a `todo`, and calls `addTodoToTodoList()`; the close button clears the form
+- `src/listCreation.js` defines the `todo` class (lowercase, 6 fields), `toAddTodoList()` (opens the `.listInput` dialog), and `addTodoToTodoList(todoItem)` (renders a list row: checkbox + title `<span>` + delete button). `src/userInterface.js` and `src/project.js` are empty placeholders
+- Import graph is a DAG: `index.js` → `todoListUI.js` → `listCreation.js`. Do not let modules import back into `index.js` (was previously circular)
 - `date-fns` is an installed dependency (currently unused)
 
 ## Gotchas
 - DOM elements use non-standard tag names, e.g. `document.createElement("buttonAdd")` creates a custom element, not a real `<button>`. Style/styling hooks are classes like `.buttonAdd`
-- The `<dialog class="listInput">` in template.html has the `open` attribute, so it renders open on load (not hidden)
+- The `<dialog class="listInput">` in template.html has no `open` attribute, so it relies on the browser's default hidden state (`dialog:not([open]) { display: none }`) and is opened only via `showModal()`. Any author `display` rule on the dialog (e.g. `styles.css` `dialog.listInput[open]`) MUST be scoped to `[open]`, or author CSS will override the UA hidden rule and the closed dialog renders on load
+- Dialog `close`/`submit` buttons are JS-created in `todoListUI.js`, appended after the form, and laid out with flex-wrap (`.close { margin-left: auto }` + `.submit`) — keep them as the last two children of the dialog
+- Never set `.innerText`/`.textContent` on an element that already has children — it destroys them. The list title is a separate `<span>` so the checkbox/delete controls survive
+- Dialog inputs are queried by id (`#title`, `#description`, ...) from `todoListUI.js`; keep those ids in sync with template.html
