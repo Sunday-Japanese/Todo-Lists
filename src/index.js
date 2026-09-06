@@ -1,6 +1,6 @@
 import "./styles.css";
 import { buttonAdd, closeButton, submit } from "./todoListUI.js";
-import { toAddTodoList } from "./listCreation.js";
+import { toAddTodoList, loadTodos } from "./listCreation.js";
 import { header,backButton } from "./switchPage.js";
 
 const contentDiv = document.querySelector(".content");
@@ -15,3 +15,7 @@ contentDiv.appendChild(head);
 contentDiv.appendChild(buttonAdd);
 listInput.append(closeButton, submit);
 header.appendChild(backButton);
+
+loadTodos();
+
+export {head,contentDiv};
