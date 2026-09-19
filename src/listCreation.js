@@ -1,4 +1,5 @@
-import { buttonAdd,closeButton } from "./todoListUI.js";
+import { listInput } from "./index.js";
+import { buttonAdd,closeButton,submitButton } from "./todoListUI.js";
 
 class todo {
     constructor(title,description,dueDate,notes,priority) {
@@ -18,11 +19,12 @@ console.log();
 // A feature which adds buttons containing todoList
 function toAddTodoList() {
 
+localStorage.setItem('fixedTitleValue',title.value); // Local storage method is used for permanent storage here
 
     const checkBox = document.createElement("input");
     const deleteButton = document.createElement("button"); // Delete list button
     const listButton = document.createElement("button");   // Main list button
-    
+    const spanForListBtn = doc
 
     const todoList = document.querySelector(".todoList");
     const listInput = document.querySelector(".listInput");
@@ -39,7 +41,7 @@ function toAddTodoList() {
 
     deleteButton.innerText = "-";
 
-    todoList.appendChild(listButton);
+    
     listButton.appendChild(checkBox);
     listButton.appendChild(deleteButton);
     
@@ -52,8 +54,28 @@ function toAddTodoList() {
 
   // A feature to close list button
   closeButton.addEventListener("click",() => {
-    listInput.close()
+    listInput.close();
+    title.value = "";
+    description.value = "";
+    dueDate.value = "";
+    notes.value = "";
+    priority.value = "";
   })
+
+  // A feature to submit and create list input button
+  submitButton.addEventListener("click",(e) => {
+    listInput.close();
+    listButton.innerText = title.value;
+    todoList.appendChild(listButton);
+    //title.value = "";
+    description.value = "";
+    dueDate.value = "";
+    notes.value = "";
+    priority.value = "";
+
+  })
+
+  listInput.appendChild(submitButton);
 
   return {listButton};
 }
